@@ -63,5 +63,6 @@ Truy cập giao diện tại: http://localhost:3000.
 ---
 
 ## 4. Tình trạng hoàn thành
-* **Nội dung đã hoàn thành:** 100% (Từ Bài 1 đến Bài 4 của Hướng dẫn 3.2.2).
-* **Kết quả:** Hệ thống Back-end đã sẵn sàng để kết nối với Front-end, các API hoạt động ổn định và trả về đúng dữ liệu yêu cầu.
+Nội dung đã hoàn thành: 100% theo tài liệu hướng dẫn HDBT 4.2.2.
+
+Kết quả: Giao diện cơ bản đã hình thành, hệ thống Routing hoạt động chính xác, các Component đã được phân tách rõ ràng để chuẩn bị cho việc kết nối API ở các bài sau.
