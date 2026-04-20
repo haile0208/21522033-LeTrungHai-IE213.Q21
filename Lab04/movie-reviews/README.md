@@ -1,58 +1,65 @@
-# BÁO CÁO THỰC HÀNH - MÔN IE213.Q21 (LAB 03)
+# BÁO CÁO THỰC HÀNH - MÔN IE213.Q21 (LAB 04)
 
 ## 1. Thông tin chung
 * **Họ và tên:** Lê Trung Hải
 * **MSSV:** 21522033
 * **Lớp:** IE213.O21
 * **Môn học:** Kỹ thuật phát triển hệ thống Web
-* **Nội dung:** Hoàn thiện Back-end cho ứng dụng Movie Reviews (Lab 03)
+* **Nội dung:** Thiết lập Frontend với ReactJS cho ứng dụng Movie Reviews (Lab 04)
 
 ---
 
 ## 2. Cấu trúc thư mục cập nhật
-Dự án được mở rộng thêm các tệp tin để quản lý Review:
 
 movie-reviews/
-├── backend/
-│   ├── api/
-│   │   ├── movies.controller.js (Cập nhật GetById, Ratings)
-│   │   ├── movies.route.js      (Cập nhật Route Review & Movie Details)
-│   │   └── reviews.controller.js (MỚI - Xử lý logic CRUD Review)
-│   ├── dao/
-│   │   ├── moviesDAO.js         (Cập nhật Aggregate & Distinct)
-│   │   └── reviewsDAO.js        (MỚI - Tương tác DB Reviews)
-│   ├── .env
-│   ├── index.js                 (Cập nhật Inject ReviewsDAO)
-│   └── server.js
+├── backend/               # (Đã hoàn thiện ở Lab 03)
+├── frontend/              # MỚI - Mã nguồn ứng dụng ReactJS
+│   ├── public/            # Chứa các tài nguyên tĩnh
+│   ├── src/
+│   │   ├── components/    # Chứa các thành phần giao diện (UI Components)
+│   │   │   ├── add-review.js
+│   │   │   ├── login.js
+│   │   │   ├── movie.js
+│   │   │   └── movies-list.js
+│   │   ├── App.js         # Thành phần chính, quản lý Định tuyến (Routing) và Trạng thái (State)
+│   │   ├── App.css
+│   │   ├── index.js       # Điểm đầu vào của ứng dụng
+│   │   └── ...
+│   ├── package.json       # Quản lý thư viện và script của dự án
+│   └── node_modules/
 └── README.md
 ---
 
-## 3. Chi tiết nội dung thực hiện (Lab 03)
+## 3. Chi tiết nội dung thực hiện (Lab 04)
+3.1. Mục tiêu
+* Khởi tạo dự án Frontend sử dụng thư viện ReactJS thông qua công cụ create-react-app.
+* Thiết lập hệ thống điều hướng (Routing) cho ứng dụng phía Client.
+* Xây dựng giao diện cơ bản bằng Bootstrap và quản lý trạng thái người dùng (Authentication state).
 
-### 3.1. Mục tiêu
-* Xây dựng đầy đủ các chức năng CRUD (Create, Read, Update, Delete) cho hệ thống đánh giá phim.
-* Sử dụng MongoDB Aggregation Framework để gộp dữ liệu từ nhiều collection (Movies và Reviews).
-* Quản lý bảo mật cơ bản: Chỉ người dùng tạo review mới có quyền chỉnh sửa hoặc xóa review đó.
+## 3.2. Các công việc đã hoàn thành
+** Khởi tạo môi trường:
+Sử dụng lệnh npx create-react-app frontend để tạo khung dự án.
+Cài đặt các thư viện bổ trợ: react-bootstrap, bootstrap, và react-router-dom (hỗ trợ định tuyến).
+Xây dựng cấu trúc điều hướng (App.js):
+Thiết lập thanh điều hướng (Navbar) bằng React-Bootstrap với các liên kết: Movies, Login/Logout.
+** Sử dụng Switch và Route để phân tách các trang:
+/: Danh sách phim (MoviesList).
+/movies/:id/review: Thêm đánh giá (AddReview).
+/movies/:id: Chi tiết phim (Movie).
+/login: Đăng nhập (Login).
+** Quản lý trạng thái người dùng:
+Sử dụng React.useState(null) để lưu trữ thông tin user.
+Viết các hàm xử lý login và logout để cập nhật trạng thái hiển thị trên thanh Menu (hiển thị "Login" hoặc "Logout User").
 
-### 3.2. Các chức năng chính đã hoàn thành
-1. **Quản lý Review:**
-   - **POST:** Cho phép người dùng gửi đánh giá mới vào cơ sở dữ liệu.
-   - **PUT:** Cập nhật nội dung đánh giá dựa trên `review_id` và xác thực `user_id`.
-   - **DELETE:** Xóa đánh giá nếu người dùng gửi đúng ID của mình.
-2. **Nâng cao truy vấn Movie:**
-   - **Get Movie By ID:** Sử dụng `$match` và `$lookup` để lấy thông tin chi tiết một bộ phim kèm theo toàn bộ danh sách các đánh giá liên quan.
-   - **Get Ratings:** Sử dụng phương thức `distinct` để lấy danh sách các phân loại phim hiện có trong hệ thống.
+## 3.3. Thư viện sử dụng
+React Router Dom: Quản lý chuyển trang mà không cần tải lại trình duyệt (SPA).
+React Bootstrap: Cung cấp các Component UI có sẵn như Navbar, Nav, giúp xây dựng giao diện nhanh và chuyên nghiệp.
 
-### 3.3. Công cụ kiểm thử
-* **Insomnia / Postman:** Dùng để giả lập các request POST/PUT/DELETE với dữ liệu JSON trong Body.
-* **MongoDB Compass:** Kiểm tra sự thay đổi dữ liệu trực tiếp trong các collections `movies` và `reviews`.
-
-### 3.4. Cách chạy chương trình
-1. Di chuyển vào thư mục `backend`.
-2. Chạy lệnh: `npm run dev`.
-3. Kiểm tra API Get Movie Details: `http://localhost:3000/api/v1/movies/id/[MOVIE_ID]`.
-4. Kiểm tra API Ratings: `http://localhost:3000/api/v1/movies/ratings`.
-
+## 3.4. Cách chạy chương trình
+Di chuyển vào thư mục frontend: cd frontend.
+Cài đặt các thư viện (nếu chưa có): npm install.
+Khởi chạy ứng dụng: npm start.
+Truy cập giao diện tại: http://localhost:3000.
 ---
 
 ## 4. Tình trạng hoàn thành
